@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickstream Agent System - Live Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Clickstream Agent System</h1>
+            <p>Live Agent-to-Agent Interaction Demo</p>
+        </header>
+
+        <!-- Event Submission Form -->
+        <section class="form-section">
+            <h2>📝 Submit Clickstream Event</h2>
+            <form id="eventForm">
+                <div class="form-row">
+                    <input type="text" id="session_id" name="session_id" placeholder="Session ID (e.g., sess_001)"
+                        required>
+                    <div class="email-container">
+                        <input type="email" id="user_email" name="user_email"
+                            placeholder="Email (e.g., user@example.com)">
+                        <label class="checkbox-label inline">
+                            <input type="checkbox" id="encrypt_email" name="encrypt_email">
+                            Encrypt Email
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <select id="event_type" name="event_type" required>
+                        <option value="page_view">Page View</option>
+                        <option value="click">Click</option>
+                        <option value="form_submit">Form Submit</option>
+                        <option value="purchase">Purchase</option>
+                    </select>
+                    <input type="text" id="page_url" name="page_url" placeholder="Page URL (e.g., /products/shoes)"
+                        required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="ip_address" name="ip_address" placeholder="IP Address (e.g., 192.168.1.1)">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consent_given" name="consent_given" checked>
+                        User gave consent (Required)
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">Submit Event</button>
+            </form>
+            <div id="submitFeedback" class="feedback"></div>
+        </section>
+
+        <!-- Live Event Feed -->
+        <section class="events-section">
+            <h2>📊 Live Event Feed</h2>
+            <div id="eventFeed" class="event-feed">
+                <p class="placeholder">No events yet. Submit an event above to get started!</p>
+            </div>
+        </section>
+
+        <!-- Agent Activity Panel -->
+        <section class="agents-section">
+            <h2>🤖 Agent Activity</h2>
+            <div class="agent-grid">
+                <div class="agent-card">
+                    <h3>Agent 1: Data Validator</h3>
+                    <div class="agent-icon">✅</div>
+                    <p id="agent1Status" class="agent-status">Initializing...</p>
+                </div>
+                <div class="agent-card">
+                    <h3>Agent 2: Privacy Redactor</h3>
+                    <div class="agent-icon">🔒</div>
+                    <p id="agent2Status" class="agent-status">Initializing...</p>
+                </div>
+                <div class="agent-card">
+                    <h3>Agent 3: Insight Analyst (LLM)</h3>
+                    <div class="agent-icon">🧠</div>
+                    <p id="agent3Status" class="agent-status">Initializing...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agent 1 & 2 Detailed Output -->
+        <div class="bottom-grid">
+            <!-- Agent 1 Validation Details -->
+            <section class="agent-details-section">
+                <h2>✅ Agent 1: Validation Details</h2>
+                <div id="agent1Output" class="agent-output">
+                    <p class="placeholder">Waiting for Agent 1 to validate events...</p>
+                </div>
+            </section>
+
+            <!-- Agent 2 Redaction Details -->
+            <section class="agent-details-section">
+                <h2>🔒 Agent 2: Redaction Details</h2>
+                <div id="agent2Output" class="agent-output">
+                    <p class="placeholder">Waiting for Agent 2 to redact sessions...</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Bottom Section: Insights + Chat -->
+        <div class="bottom-grid">
+            <!-- Real-time Insights -->
+            <section class="insights-section">
+                <h2>💡 Real-time Insights</h2>
+                <div id="insightFeed" class="insight-feed">
+                    <p class="placeholder">Waiting for Agent 3 to generate insights...</p>
+                </div>
+            </section>
+
+            <!-- Ask Agent 3 -->
+            <section class="chat-section">
+                <h2>💬 Ask Agent 3</h2>
+                <div id="chatHistory" class="chat-history">
+                    <p class="placeholder">Ask Agent 3 questions about the data!</p>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="questionInput" placeholder="e.g., What % of users have consent?" />
+                    <button id="askButton" onclick="askAgent3()">Ask</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
